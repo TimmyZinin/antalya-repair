@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antalya Telefon Tamiri | Phone Repair Guide</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f14;--bg2:#13171f;--bg3:#1a1f2b;--surface:#1e2433;--surface2:#252b3b;--border:#2a3148;--text:#e8eaf0;--text2:#9ca3b8;--text3:#6b7394;--accent:#f0a500;--green:#34d399;--red:#f87171;--blue:#60a5fa;--purple:#a882ff;--tier1:#f0a500;--tier2:#60a5fa;--tier3:#9ca3b8;--pink:#f472b6;--radius:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:var(--bg)}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.header{position:sticky;top:0;z-index:100;background:rgba(12,15,20,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--accent);letter-spacing:-0.02em}
+.logo span{color:var(--text3);font-size:0.85rem;margin-left:8px;font-family:'DM Sans'}
+.lang-switcher{display:flex;gap:4px;background:var(--bg3);border-radius:8px;padding:3px}
+.lang-btn{background:none;border:none;color:var(--text3);font-size:0.8rem;font-weight:600;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans';text-transform:uppercase;letter-spacing:0.05em}
+.lang-btn.active{background:var(--accent);color:var(--bg)}
+.lang-btn:hover:not(.active){color:var(--text)}
+.hero{max-width:1200px;margin:0 auto;padding:60px 24px 40px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.25);color:var(--accent);font-size:0.75rem;font-weight:600;padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:16px;letter-spacing:-0.02em}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero-sub{color:var(--text2);font-size:1.05rem;max-width:600px;line-height:1.7}
+.hero-meta{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap}
+.hero-meta-item{display:flex;align-items:center;gap:8px;color:var(--text3);font-size:0.85rem}
+.hero-meta-item svg{width:16px;height:16px;opacity:0.6}
+.hero-meta-item strong{color:var(--text)}
+.guldenis-banner{max-width:1200px;margin:0 auto 24px;padding:0 24px}
+.guldenis-card{background:linear-gradient(135deg,rgba(244,114,182,0.08),rgba(168,130,255,0.08));border:1px solid rgba(244,114,182,0.25);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;cursor:pointer;transition:border-color 0.3s}
+.guldenis-card:hover{border-color:var(--pink)}
+.guldenis-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.guldenis-info{flex:1;min-width:200px}
+.guldenis-name{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--pink)}
+.guldenis-desc{color:var(--text2);font-size:0.85rem;margin-top:2px}
+.guldenis-loc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text3);background:var(--bg3);padding:4px 10px;border-radius:6px;white-space:nowrap}
+.map-section{max-width:1200px;margin:0 auto;padding:0 24px 48px}
+.map-container{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);height:460px;position:relative}
+#map{height:100%;width:100%}
+.leaflet-popup-content-wrapper{background:var(--surface)!important;color:var(--text)!important;border-radius:10px!important;box-shadow:0 8px 32px rgba(0,0,0,0.5)!important;border:1px solid var(--border)!important}
+.leaflet-popup-tip{background:var(--surface)!important}
+.leaflet-popup-content{margin:12px 16px!important;font-family:'DM Sans'!important;font-size:13px!important;line-height:1.5!important}
+.leaflet-popup-content b{color:var(--accent)}
+.leaflet-popup-content a{color:var(--blue)}
+.leaflet-popup-content .dist{color:var(--pink);font-weight:600}
+.leaflet-container{background:var(--bg2)!important}
+.leaflet-tile-pane{filter:brightness(0.7) contrast(1.1) saturate(0.8)}
+.map-legend{position:absolute;bottom:16px;left:16px;z-index:1000;background:rgba(12,15,20,0.9);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.75rem;display:flex;flex-direction:column;gap:6px}
+.legend-item{display:flex;align-items:center;gap:8px}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.legend-line{width:12px;height:12px;border-radius:50%;border:2px dashed;flex-shrink:0}
+.stats-bar{max-width:1200px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center}
+.stat-num{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--accent)}
+.stat-label{color:var(--text3);font-size:0.78rem;margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
+.tier-section{max-width:1200px;margin:0 auto;padding:0 24px}
+.tier-header{display:flex;align-items:center;gap:12px;margin:48px 0 24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.tier-header h2{font-family:'DM Serif Display',serif;font-size:1.5rem}
+.tier-header .tier-count{color:var(--text3);font-size:0.85rem;margin-left:auto}
+.shops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.shop-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all 0.3s;position:relative;overflow:hidden;cursor:pointer}
+.shop-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--tier3));opacity:0;transition:opacity 0.3s}
+.shop-card:hover{border-color:var(--card-accent,var(--text3));transform:translateY(-2px)}
+.shop-card:hover::before{opacity:1}
+.shop-card.tier1{--card-accent:var(--tier1)}.shop-card.tier2{--card-accent:var(--tier2)}.shop-card.tier3{--card-accent:var(--tier3)}
+.shop-top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
+.shop-rank{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text3)}
+.shop-dist{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--pink);background:rgba(244,114,182,0.1);padding:3px 8px;border-radius:4px;white-space:nowrap}
+.shop-name{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:4px}
+.shop-badge{display:inline-block;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:3px 8px;border-radius:4px;margin-bottom:4px;margin-right:4px}
+.badge-top{background:rgba(240,165,0,0.15);color:var(--accent)}.badge-oneplus{background:rgba(52,211,153,0.15);color:var(--green)}.badge-courier{background:rgba(96,165,250,0.15);color:var(--blue)}.badge-warranty{background:rgba(168,130,255,0.15);color:var(--purple)}.badge-rated{background:rgba(248,113,113,0.15);color:var(--red)}
+.shop-details{display:grid;gap:7px;margin-top:12px;font-size:0.83rem}
+.shop-detail{display:flex;gap:10px;align-items:flex-start}
+.shop-detail .label{color:var(--text3);min-width:50px;flex-shrink:0}
+.shop-detail .value{color:var(--text2)}
+.shop-detail .value a{color:var(--blue);text-decoration:none}
+.shop-detail .value a:hover{text-decoration:underline}
+.shop-rating{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:0.83rem}
+.stars{color:var(--accent)}.rating-source{color:var(--text3)}
+.shop-why{margin-top:10px;padding:10px 12px;background:rgba(240,165,0,0.04);border-radius:8px;border-left:2px solid var(--card-accent,var(--accent));font-size:0.8rem;color:var(--text2);line-height:1.6}
+.tips-section{max-width:1200px;margin:60px auto 0;padding:0 24px 80px}
+.tips-card{background:linear-gradient(135deg,var(--surface),var(--bg3));border:1px solid var(--border);border-radius:var(--radius);padding:32px}
+.tips-card h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:20px;color:var(--accent)}
+.tips-list{list-style:none;display:grid;gap:12px}
+.tips-list li{display:flex;gap:12px;align-items:flex-start;color:var(--text2);font-size:0.88rem;line-height:1.6}
+.tips-list li::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0}
+.tips-list li strong{color:var(--text)}
+.footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:var(--text3);font-size:0.8rem}
+@media(max-width:768px){.shops-grid{grid-template-columns:1fr}.map-container{height:360px}.hero{padding-top:40px}.stats-bar{grid-template-columns:repeat(2,1fr)}.guldenis-card{flex-direction:column;text-align:center}}
+@media(max-width:480px){.header-inner{height:52px}.logo span{display:none}.lang-btn{padding:5px 10px;font-size:0.72rem}.hero h1{font-size:1.7rem}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.shop-card{animation:fadeUp 0.5s ease both}
+@keyframes pulseRing{0%{transform:scale(1);opacity:0.6}50%{transform:scale(1.15);opacity:0.3}100%{transform:scale(1);opacity:0.6}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner"><div class="logo">Antalya Repair<span data-i18n="logo_sub">Rehber</span></div><div class="lang-switcher"><button class="lang-btn active" onclick="setLang('tr')">TR</button><button class="lang-btn" onclick="setLang('ru')">RU</button><button class="lang-btn" onclick="setLang('en')">EN</button></div></div></header>
+<section class="hero"><div class="hero-badge">📱 OnePlus Nord 4 5G</div><h1 data-i18n="hero_title">Antalya'da <em>Telefon Ekran</em> Tamiri Rehberi</h1><p class="hero-sub" data-i18n="hero_sub">Antalya'daki en iyi telefon tamir servislerinin kapsamlı rehberi. OnePlus Nord 4 5G ekran değişimi için araştırılmış ve puanlanmıştır.</p><div class="hero-meta"><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-i18n="meta_loc">Konum: <strong>Antalya</strong></span></div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span data-i18n="meta_shops"><strong>18</strong> servis</span></div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-i18n="meta_date"><strong>Nisan 2026</strong></span></div></div></section>
+<div class="guldenis-banner"><div class="guldenis-card" onclick="flyToGuldenis()"><div class="guldenis-avatar">📍</div><div class="guldenis-info"><div class="guldenis-name" data-i18n="g_name">📍 Güldenis'in Noktası</div><div class="guldenis-desc" data-i18n="g_desc">Deniz Fotoğrafçılık, Bayındır Mah. Pınar Cad. — Güldenis bugün buraya geliyor. Mesafeler bu noktadan hesaplanmıştır.</div></div><div class="guldenis-loc">36.887°N 30.693°E</div></div></div>
+<section class="map-section"><div class="map-container"><div id="map"></div><div class="map-legend"><div class="legend-item"><div class="legend-dot" style="background:var(--pink)"></div><span data-i18n="leg_g">Güldenis</span></div><div class="legend-item"><div class="legend-dot" style="background:var(--tier1)"></div><span data-i18n="leg_t1">Birinci Öncelik</span></div><div class="legend-item"><div class="legend-dot" style="background:var(--tier2)"></div><span data-i18n="leg_t2">İkinci Öncelik</span></div><div class="legend-item"><div class="legend-dot" style="background:var(--tier3)"></div><span data-i18n="leg_t3">Diğer</span></div><div class="legend-item"><div class="legend-line" style="border-color:rgba(244,114,182,0.4)"></div><span data-i18n="leg_r">2 km yarıçap</span></div></div></div></section>
+<div class="stats-bar"><div class="stat-card"><div class="stat-num">18</div><div class="stat-label" data-i18n="stat_total">Servis</div></div><div class="stat-card"><div class="stat-num">3</div><div class="stat-label" data-i18n="stat_tier1">Önerilen</div></div><div class="stat-card"><div class="stat-num">~1.3km</div><div class="stat-label" data-i18n="stat_near">En Yakın Tier 1</div></div><div class="stat-card"><div class="stat-num">300–800₺</div><div class="stat-label" data-i18n="stat_price">İşçilik</div></div><div class="stat-card"><div class="stat-num">~1h</div><div class="stat-label" data-i18n="stat_time">Tamir Süresi</div></div></div>
+<div class="tier-section" id="shops-container"></div>
+<section class="tips-section"><div class="tips-card"><h2 data-i18n="tips_title">💡 Faydalı İpuçları</h2><ul class="tips-list" id="tips-list"></ul></div></section>
+<footer class="footer"><span data-i18n="footer">Nisan 2026 · Bu rehber bilgilendirme amaçlıdır.</span></footer>
+<script>
+const G={lat:36.8870,lng:30.6930};
+function hav(a,b,c,d){const R=6371,x=(c-a)*Math.PI/180,y=(d-b)*Math.PI/180,z=Math.sin(x/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(y/2)**2;return R*2*Math.atan2(Math.sqrt(z),Math.sqrt(1-z))}
+const S=[
+{id:1,tier:1,lat:36.8835,lng:30.7060,name:"ATT Teknik",owner:"Önder Değerli",address:"Kızılsaray Mah. 78. Sok No:20/D, Muratpaşa",phone:"+90 545 895 9000",website:"antalyatelefontamiri.com",hours:"08:00–20:00 (Paz 10:00–18:00)",rating:"4.8",rs:"Google",brands:"OnePlus ✓",badges:["top","oneplus"],why:{tr:"ATSO Etik Ödülü. Toptan parça dağıtıcısı. Müşteri parçasıyla çalışır. 7 gün açık.",ru:"Награда ATSO за этику. Оптовый поставщик. Работает с деталями клиента. 7 дней.",en:"ATSO Ethics Award. Wholesale dealer. Customer parts OK. 7 days."}},
+{id:2,tier:1,lat:36.8840,lng:30.7075,name:"TURBO GSM",owner:"Bülent Açıl",address:"Kızılsaray Mah., Yener Ulusoy Blv. No:30/A",phone:"0 542 540 88 02",website:"telefontamiriantalya.com",hours:"10:00–21:00",rating:"4.3",rs:"Yandex",brands:"OnePlus ✓ Oppo ✓ Xiaomi ✓",badges:["oneplus"],why:{tr:"OnePlus'ı listeleyen TEK bağımsız servis. 20+ yıl.",ru:"ЕДИНСТВЕННЫЙ с OnePlus в списке. 20+ лет.",en:"ONLY shop listing OnePlus. 20+ years."}},
+{id:3,tier:1,lat:36.8842,lng:30.7080,name:"TamirPlus",address:"Kızılsaray, Yener Ulusoy Blv. No:39/B",phone:"0552 381 07 62",website:"tamirplus.com",hours:"09:00–20:00",rating:"4.6",rs:"Yandex",brands:"Tüm markalar",badges:["warranty"],why:{tr:"6 ay garanti. Ücretsiz kurye 20km. Yedek telefon. TR/EN/RU.",ru:"6 мес. гарантия. Курьер 20км. Подменный тел. TR/EN/RU.",en:"6-mo warranty. Courier 20km. Loaner phone. TR/EN/RU."}},
+{id:4,tier:2,lat:36.8800,lng:30.7040,name:"TelefonKuryen",address:"Elmalı Mah., 21. Sok., 5/A",phone:"+90 536 506 70 29",website:"telefonkuryen.com",hours:"09:00–21:30",rating:"3.9",rs:"Yandex",brands:"Xiaomi, Oppo, Huawei",badges:["courier"],why:{tr:"Kaş'a ücretsiz kurye! 72K Instagram.",ru:"Курьер в Каш бесплатно! 72K Instagram.",en:"Free courier to Kaş! 72K Instagram."}},
+{id:5,tier:2,lat:36.8870,lng:30.7100,name:"Technohub Antalya",address:"Milli Egemenlik Cad., 24G",phone:"+90 507 244 67 60",hours:"09:00–18:00",rating:"5.0",rs:"Yandex (18)",brands:"Xiaomi, Huawei, Meizu, Honor",badges:["rated"],why:{tr:"5.0/5 Yandex (18 değ.). Umutsuz vakaları çözer.",ru:"5.0/5 Yandex (18 отз.). Безнадёжные случаи.",en:"5.0/5 Yandex (18 rev.). Hopeless cases."}},
+{id:6,tier:2,lat:36.8680,lng:30.7230,name:"Orse İletişim",address:"Fener Mah. Tekelioğlu Cad. N:58/C",phone:"0850 255 18 72",website:"antalyatelefonteknikservisi.com",hours:"09:00–19:00",rating:"4.0",rs:"Google",brands:"Oppo ✓ Xiaomi ✓ Huawei ✓",badges:["warranty"],why:{tr:"OCA vakum. 6 ay garanti. Lara/Fener.",ru:"OCA вакуум. 6 мес. Лара/Фенер.",en:"OCA vacuum. 6-mo warranty. Lara/Fener."}},
+{id:7,tier:2,lat:36.9310,lng:30.6720,name:"Demirkol İletişim",address:"Sütçüler Cd. No 9, Kepez",website:"demirkoliletisim.com",hours:"09:00–19:00",rating:"4.2",rs:"Google",brands:"Xiaomi ✓ Oppo ✓ Realme ✓",badges:[],why:{tr:"Kepez en iyisi. Orijinal parça.",ru:"Лучший в Кепез.",en:"Best in Kepez."}},
+{id:8,tier:2,lat:36.8830,lng:30.7055,name:"Makstel GSM",address:"Kızılsaray, 62. Sk. No 7/A",phone:"0 538 772 07 21",hours:"09:00–21:30",rating:"4.9",rs:"Yandex",brands:"Tüm markalar",badges:[],why:{tr:"Yandex 4.9/5. Geç saatlere kadar.",ru:"Yandex 4.9/5. Допоздна.",en:"Yandex 4.9/5. Open late."}},
+{id:9,tier:3,lat:36.8832,lng:30.7065,name:"Telefonica",address:"Kızılsaray, 86. Sk. 18/B",phone:"0 536 715 25 15",hours:"09:00–18:00",rating:"3.8",rs:"Google",brands:"Tüm markalar",badges:[],why:{tr:"20+ yıl (2002).",ru:"20+ лет (2002).",en:"20+ years (2002)."}},
+{id:10,tier:3,lat:36.8850,lng:30.7095,name:"Korkmaz İletişim",website:"antalyatelefoncu.com",hours:"10:00–20:00",rating:"4.0",rs:"Google",brands:"Tüm markalar",badges:[],why:{tr:"15+ yıl. JC-ID çip. 30-60 dk.",ru:"15+ лет. JC-ID. 30-60 мин.",en:"15+ yrs. JC-ID. 30-60 min."}},
+{id:11,tier:3,lat:36.8855,lng:30.7110,name:"Antalya Cep Teknik",website:"antalyacepteknik.com.tr",hours:"09:00–19:00",rating:"4.1",rs:"Google",brands:"Samsung, Xiaomi, Huawei, Oppo",badges:["warranty"],why:{tr:"6 ay garanti. 24/7 destek.",ru:"6 мес. 24/7.",en:"6-mo warranty. 24/7."}},
+{id:12,tier:3,lat:36.8820,lng:30.7030,name:"Özgem Teknik",address:"Kızılsaray, Dolaplıdere Cd. 28/B",phone:"0242 244 36 46",hours:"09:00–19:00",rating:"4.5",rs:"Foursquare",brands:"Apple uzmanı",badges:[],why:{tr:"En güvenilir iPhone servisi.",ru:"Лучший iPhone-сервис.",en:"Top iPhone service."}},
+{id:13,tier:3,lat:36.8690,lng:30.7250,name:"Antalya Fix",address:"TerraCity AVM, Fener Mah.",phone:"+90 242 318 15 88",hours:"10:00–23:00",rating:"7.6/10",rs:"Foursquare",brands:"Tüm markalar",badges:[],why:{tr:"TerraCity. 23:00'e kadar.",ru:"TerraCity. До 23:00.",en:"TerraCity. Until 23:00."}},
+{id:14,tier:3,lat:36.8880,lng:30.7020,name:"iFixit Antalya",address:"Kışla Mah., 35. Sok., 28B",hours:"09:00–19:00",rating:"4.2",rs:"Yandex (11)",brands:"Tüm markalar",badges:[],why:{tr:"Rusça bilen servis. 1 yıl garanti.",ru:"Русскоязычный. 1 год гарантия.",en:"Russian-speaking. 1yr warranty."}},
+{id:15,tier:3,lat:36.9280,lng:30.6700,name:"Sağlam İletişim",address:"Kepez, Yeşilırmak Cad. 121B",phone:"+90 242 326 38 01",hours:"09:00–20:00",rating:"4.0",rs:"Yandex",brands:"Tüm markalar",badges:[],why:{tr:"Kepez güvenilir.",ru:"Надёжный в Кепез.",en:"Reliable in Kepez."}},
+{id:16,tier:3,lat:36.8750,lng:30.6600,name:"Eksper İletişim",address:"Siteler Mah., 1310. Sok., 1, Konyaaltı",phone:"+90 543 234 61 82",hours:"09:00–21:00",rating:"4.1",rs:"Yandex",brands:"Tüm markalar",badges:[],why:{tr:"Konyaaltı. Geç saatlere kadar.",ru:"Коньяалты. Допоздна.",en:"Konyaaltı. Open late."}},
+{id:17,tier:3,lat:36.8810,lng:30.7090,name:"Cep Kurye",address:"Üçgen, 90. Sk. No:24/A",hours:"09:00–19:00",rating:"3.5",rs:"Google",brands:"Tüm markalar",badges:["courier"],why:{tr:"⚠️ Gecikme şikayetleri.",ru:"⚠️ Жалобы на задержки.",en:"⚠️ Delay complaints."}},
+{id:18,tier:3,lat:36.8850,lng:30.7045,name:"G&F İletişim",hours:"09:00–19:00",rating:"4.0",rs:"Google",brands:"Tüm markalar",badges:[],why:{tr:"15 yıl. Yerinde tamir 15-20 dk. Cam 1/3 maliyet.",ru:"15 лет. Ремонт у клиента 15-20 мин. Стекло ⅓.",en:"15 yrs. On-site 15-20 min. Glass ⅓ cost."}}
+];
+S.forEach(s=>{s.dist=s.lat?hav(G.lat,G.lng,s.lat,s.lng):99});
+const i18n={
+tr:{logo_sub:"Rehber",hero_title:"Antalya'da <em>Telefon Ekran</em> Tamiri Rehberi",hero_sub:"OnePlus Nord 4 5G ekran değişimi için araştırılmış kapsamlı rehber.",meta_loc:"Konum: <strong>Antalya</strong>",meta_shops:"<strong>18</strong> servis",meta_date:"<strong>Nisan 2026</strong>",stat_total:"Servis",stat_tier1:"Önerilen",stat_near:"En Yakın Tier 1",stat_price:"İşçilik",stat_time:"Süre",g_name:"📍 Güldenis'in Noktası",g_desc:"Deniz Fotoğrafçılık, Bayındır Mah. — Güldenis bugün buraya geliyor. Mesafeler bu noktadan.",tier1_title:"Birinci Öncelik — En İyi",tier2_title:"İkinci Öncelik — Güçlü Alternatifler",tier3_title:"Diğer Seçenekler",la:"Adres",lp:"Tel",lw:"Web",lh:"Saat",lb:"Markalar",bt:"⭐ EN İYİ",bo:"✓ ONEPLUS",bc:"🚚 KURYE",bw:"🛡 GARANTİ",br:"🏆 TOP",leg_g:"Güldenis",leg_t1:"Birinci",leg_t2:"İkinci",leg_t3:"Diğer",leg_r:"2 km yarıçap",tips_title:"💡 İpuçları",tips:['<strong>Sorun:</strong> "Müşterinin getirdiği ekranı takıyor musunuz?"','<strong>Kızılsaray:</strong> Tier 1 hepsi ~1.3 km, taksiyle 5 dk.','<strong>Kaş kurye:</strong> TelefonKuryen ücretsiz.','<strong>Ücret:</strong> Montaj 300–800₺. Parça+iş 1.500–5.000₺.','<strong>KVK uyarısı:</strong> Müşteri parçası yok, 1–3 hafta.'],footer:"Nisan 2026 · Bilgilendirme amaçlıdır."},
+ru:{logo_sub:"Гид",hero_title:"Гид по <em>ремонту экрана</em> в Анталье",hero_sub:"Справочник сервисов для замены экрана OnePlus Nord 4 5G.",meta_loc:"<strong>Анталья, Турция</strong>",meta_shops:"<strong>18</strong> сервисов",meta_date:"<strong>Апрель 2026</strong>",stat_total:"Сервисов",stat_tier1:"Рекомендовано",stat_near:"Ближайший Tier 1",stat_price:"Работа",stat_time:"Время",g_name:"📍 Точка Гюльдениз",g_desc:"Deniz Fotoğrafçılık, Bayındır Mah. — Гюльдениз едет сюда сегодня. Расстояния от этой точки.",tier1_title:"Приоритет 1 — Лучшие",tier2_title:"Приоритет 2 — Альтернативы",tier3_title:"Остальные",la:"Адрес",lp:"Тел",lw:"Сайт",lh:"Часы",lb:"Бренды",bt:"⭐ ЛУЧШИЙ",bo:"✓ ONEPLUS",bc:"🚚 КУРЬЕР",bw:"🛡 ГАРАНТИЯ",br:"🏆 ТОП",leg_g:"Гюльдениз",leg_t1:"Приоритет 1",leg_t2:"Приоритет 2",leg_t3:"Другие",leg_r:"радиус 2 км",tips_title:"💡 Советы",tips:['<strong>Спросите:</strong> «Müşterinin getirdiği ekranı takıyor musunuz?»','<strong>Кызылсарай:</strong> Tier 1 все ~1.3 км, такси 5 мин.','<strong>Курьер:</strong> TelefonKuryen бесплатно из Каша.','<strong>Цена:</strong> Работа 300–800₺. С деталью 1500–5000₺.','<strong>KVK:</strong> Не ставит детали клиента, 1–3 нед.'],footer:"Апрель 2026 · Информационный гид."},
+en:{logo_sub:"Guide",hero_title:"Antalya <em>Phone Screen</em> Repair Guide",hero_sub:"Comprehensive guide for OnePlus Nord 4 5G screen replacement.",meta_loc:"<strong>Antalya, Turkey</strong>",meta_shops:"<strong>18</strong> shops",meta_date:"<strong>April 2026</strong>",stat_total:"Shops",stat_tier1:"Recommended",stat_near:"Nearest Tier 1",stat_price:"Labor",stat_time:"Time",g_name:"📍 Güldenis's Location",g_desc:"Deniz Fotoğrafçılık, Bayındır Mah. — Güldenis is heading here today. Distances calculated from this point.",tier1_title:"Tier 1 — Top Picks",tier2_title:"Tier 2 — Alternatives",tier3_title:"Other Options",la:"Address",lp:"Phone",lw:"Web",lh:"Hours",lb:"Brands",bt:"⭐ TOP",bo:"✓ ONEPLUS",bc:"🚚 COURIER",bw:"🛡 WARRANTY",br:"🏆 RATED",leg_g:"Güldenis",leg_t1:"Tier 1",leg_t2:"Tier 2",leg_t3:"Other",leg_r:"2 km radius",tips_title:"💡 Tips",tips:['<strong>Call ahead:</strong> "Müşterinin getirdiği ekranı takıyor musunuz?"','<strong>Kızılsaray:</strong> All Tier 1 ~1.3 km, 5 min taxi.','<strong>Kaş courier:</strong> TelefonKuryen free pickup.','<strong>Cost:</strong> Labor 300–800₺. Part+labor 1500–5000₺.','<strong>KVK warning:</strong> No customer parts, 1–3 week wait.'],footer:"April 2026 · Informational guide."}
+};
+let L_=('tr');
+function setLang(l){L_=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim()===l.toUpperCase()));document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(i18n[l][k])e.innerHTML=i18n[l][k]});renderShops();renderTips()}
+function bH(type,l){const t=i18n[l],m={top:['badge-top',t.bt],oneplus:['badge-oneplus',t.bo],courier:['badge-courier',t.bc],warranty:['badge-warranty',t.bw],rated:['badge-rated',t.br]};const[c,lb]=m[type]||['',''];return '<span class="shop-badge '+c+'">'+lb+'</span>'}
+function renderShops(){
+const l=L_,t=i18n[l],c=document.getElementById('shops-container');
+const tiers=[{n:1,title:t.tier1_title,color:'var(--tier1)',s:S.filter(x=>x.tier===1).sort((a,b)=>a.dist-b.dist)},{n:2,title:t.tier2_title,color:'var(--tier2)',s:S.filter(x=>x.tier===2).sort((a,b)=>a.dist-b.dist)},{n:3,title:t.tier3_title,color:'var(--tier3)',s:S.filter(x=>x.tier===3).sort((a,b)=>a.dist-b.dist)}];
+let h='',gi=0;
+tiers.forEach(ti=>{
+h+='<div class="tier-header"><div class="tier-dot" style="background:'+ti.color+'"></div><h2>'+ti.title+'</h2><span class="tier-count">'+ti.s.length+'</span></div><div class="shops-grid">';
+ti.s.forEach(s=>{
+gi++;const d=s.dist<10?s.dist.toFixed(1)+' km':'—';
+h+='<div class="shop-card tier'+s.tier+'" onclick="flyTo('+s.lat+','+s.lng+')" style="animation-delay:'+(gi*0.05)+'s">';
+h+='<div class="shop-top-row"><span class="shop-rank">#'+String(gi).padStart(2,'0')+'</span><span class="shop-dist">↗ '+d+'</span></div>';
+h+='<div class="shop-name">'+s.name+'</div>';
+if(s.owner)h+='<div style="color:var(--text3);font-size:0.8rem;margin-bottom:6px">'+s.owner+'</div>';
+h+='<div style="margin-bottom:8px">'+s.badges.map(b=>bH(b,l)).join('')+'</div>';
+h+='<div class="shop-details">';
+if(s.address)h+='<div class="shop-detail"><span class="label">'+t.la+'</span><span class="value">'+s.address+'</span></div>';
+if(s.phone)h+='<div class="shop-detail"><span class="label">'+t.lp+'</span><span class="value"><a href="tel:'+s.phone.replace(/\s/g,'')+'">'+s.phone+'</a></span></div>';
+if(s.website)h+='<div class="shop-detail"><span class="label">'+t.lw+'</span><span class="value"><a href="https://'+s.website+'" target="_blank">'+s.website+'</a></span></div>';
+if(s.hours)h+='<div class="shop-detail"><span class="label">'+t.lh+'</span><span class="value">'+s.hours+'</span></div>';
+if(s.brands)h+='<div class="shop-detail"><span class="label">'+t.lb+'</span><span class="value">'+s.brands+'</span></div>';
+h+='</div>';
+if(s.rating){const n=parseFloat(s.rating),st='★'.repeat(Math.min(Math.floor(n),5));h+='<div class="shop-rating"><span class="stars">'+st+'</span><strong>'+s.rating+'</strong><span class="rating-source">'+s.rs+'</span></div>'}
+if(s.why&&s.why[l])h+='<div class="shop-why">'+s.why[l]+'</div>';
+h+='</div>'});h+='</div>'});c.innerHTML=h}
+function renderTips(){document.getElementById('tips-list').innerHTML=i18n[L_].tips.map(t=>'<li>'+t+'</li>').join('')}
+// MAP
+const map=L.map('map',{zoomControl:false}).setView([36.889,30.700],14);
+L.control.zoom({position:'topright'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OSM © CARTO',maxZoom:19}).addTo(map);
+const gI=L.divIcon({className:'',html:'<div style="position:relative;width:48px;height:48px"><div style="position:absolute;inset:0;border-radius:50%;background:rgba(244,114,182,0.25);animation:pulseRing 2s ease infinite"></div><div style="position:absolute;top:8px;left:8px;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#f472b6,#a882ff);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 20px rgba(244,114,182,0.5);border:3px solid rgba(255,255,255,0.3)">📍</div></div>',iconSize:[48,48],iconAnchor:[24,24]});
+const gM=L.marker([G.lat,G.lng],{icon:gI,zIndexOffset:1000}).addTo(map);
+gM.bindPopup('<b style="color:#f472b6">Güldenis</b><br>Deniz Fotoğrafçılık<br>Bayındır Mah. Pınar Cad.');
+L.circle([G.lat,G.lng],{radius:2000,color:'#f472b6',weight:1,opacity:0.4,fillColor:'#f472b6',fillOpacity:0.04,dashArray:'8 6'}).addTo(map);
+L.circle([G.lat,G.lng],{radius:1000,color:'#f472b6',weight:1,opacity:0.2,fillColor:'#f472b6',fillOpacity:0.03,dashArray:'4 4'}).addTo(map);
+function tC(t){return t===1?'#f0a500':t===2?'#60a5fa':'#9ca3b8'}
+function cI(t,i){const c=tC(t);return L.divIcon({className:'',html:'<div style="background:'+c+';color:#000;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;font-family:JetBrains Mono,monospace;box-shadow:0 2px 8px rgba(0,0,0,0.5);border:2px solid rgba(255,255,255,0.2)">'+i+'</div>',iconSize:[26,26],iconAnchor:[13,13]})}
+const Ms=[];
+S.forEach((s,i)=>{if(!s.lat)return;const m=L.marker([s.lat,s.lng],{icon:cI(s.tier,i+1)}).addTo(map);m.bindPopup('<b>'+s.name+'</b><br><span class="dist">↗ '+s.dist.toFixed(1)+' km</span><br>'+(s.address||'')+'<br>'+(s.phone?'<a href="tel:'+s.phone.replace(/\s/g,'')+'">'+s.phone+'</a>':''));Ms.push(m)});
+S.filter(s=>s.tier===1).forEach(s=>{L.polyline([[G.lat,G.lng],[s.lat,s.lng]],{color:'rgba(240,165,0,0.3)',weight:1.5,dashArray:'6 8'}).addTo(map)});
+function flyTo(a,b){map.flyTo([a,b],16,{duration:1});Ms.forEach(m=>{if(Math.abs(m.getLatLng().lat-a)<0.001&&Math.abs(m.getLatLng().lng-b)<0.001)m.openPopup()})}
+function flyToGuldenis(){map.flyTo([G.lat,G.lng],15,{duration:1});gM.openPopup()}
+renderShops();renderTips();
+</script>
+</body>
+</html>
